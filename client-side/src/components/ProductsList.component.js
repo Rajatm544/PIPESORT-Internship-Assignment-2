@@ -111,6 +111,7 @@ class ProductList extends Component {
                 <div className="container">
                     <div>
                         <form onSubmit={this.handleSubmit}>
+                            {/* All price filter options */}
                             <div className="form-check form-check-inline">
                                 <input
                                     className="form-check-input"
@@ -176,6 +177,7 @@ class ProductList extends Component {
                                     Clear Price Filter
                                 </label>
                             </div>
+                            {/* Department filter */}
                             <div className="form-group">
                                 <select
                                     className="form-control"
@@ -194,6 +196,7 @@ class ProductList extends Component {
                                     ))}
                                 </select>
                             </div>
+                            {/* Color Filter */}
                             <div className="form-group">
                                 <select
                                     className="form-control"
@@ -211,6 +214,7 @@ class ProductList extends Component {
                                         <option value={color}>{color}</option>
                                     ))}
                                 </select>
+                                {/* Clear all the applied filters */}
                                 {this.state.hasColorFilter ||
                                 this.state.hasPriceFilter ||
                                 this.state.hasDeptFilter ? (
@@ -226,12 +230,13 @@ class ProductList extends Component {
                             </div>
                         </form>
                     </div>
+                    {/* Conditionally rendering products based on applied filters*/}
                     <div id="products-list">
                         {this.state.hasPriceFilter
-                            ? this.state.price.match(/\d+/g)[1]
+                            ? this.state.price.match(/\d+/g)[1] // check if (price > 5000) is the filter selected
                                 ? this.state.hasDeptFilter
                                     ? this.state.hasColorFilter
-                                        ? this.state.products
+                                        ? this.state.products //All 3 filters are applied but (priceFilter < 5000)
                                               .filter(
                                                   (item) =>
                                                       Number(item.price) >
@@ -257,7 +262,7 @@ class ProductList extends Component {
                                                       product={product}
                                                   />
                                               ))
-                                        : this.state.products
+                                        : this.state.products // (priceFilter < 5000) and (Dept filter) applied
                                               .filter(
                                                   (item) =>
                                                       Number(item.price) >
@@ -282,7 +287,7 @@ class ProductList extends Component {
                                                   />
                                               ))
                                     : this.state.hasColorFilter
-                                    ? this.state.products
+                                    ? this.state.products // (priceFilter < 5000) and (Color filter) applied
                                           .filter(
                                               (item) =>
                                                   Number(item.price) >
@@ -306,7 +311,7 @@ class ProductList extends Component {
                                                   product={product}
                                               />
                                           ))
-                                    : this.state.products
+                                    : this.state.products // Only priceFilter is applied with (price < 5000)
                                           .filter(
                                               (item) =>
                                                   Number(item.price) >
@@ -329,7 +334,7 @@ class ProductList extends Component {
                                               />
                                           ))
                                 : this.state.hasDeptFilter
-                                ? this.state.hasColorFilter
+                                ? this.state.hasColorFilter // All 3 filters applied but with (price > 5000)
                                     ? this.state.products
                                           .filter(
                                               (item) =>
@@ -350,7 +355,7 @@ class ProductList extends Component {
                                                   product={product}
                                               />
                                           ))
-                                    : this.state.products
+                                    : this.state.products // (PriceFilter > 5000) and (Dept filter) applied
                                           .filter(
                                               (item) =>
                                                   Number(item.price) >
@@ -368,7 +373,7 @@ class ProductList extends Component {
                                               />
                                           ))
                                 : this.state.hasColorFilter
-                                ? this.state.products
+                                ? this.state.products // (PriceFilter > 5000) and (Color Filter) applied
                                       .filter(
                                           (item) =>
                                               Number(item.price) >
@@ -385,7 +390,7 @@ class ProductList extends Component {
                                               product={product}
                                           />
                                       ))
-                                : this.state.products
+                                : this.state.products // only (priceFilter > 5000) is applied
                                       .filter(
                                           (item) =>
                                               Number(item.price) >
@@ -403,7 +408,7 @@ class ProductList extends Component {
                                       ))
                             : this.state.hasDeptFilter
                             ? this.state.hasColorFilter
-                                ? this.state.products
+                                ? this.state.products // (Dept Filter) and (Color filter) applied
                                       .filter(
                                           (product) =>
                                               product.dept ===
@@ -416,7 +421,7 @@ class ProductList extends Component {
                                               product={product}
                                           />
                                       ))
-                                : this.state.products
+                                : this.state.products // Only Dept filter is applied
                                       .filter(
                                           (product) =>
                                               product.dept === this.state.dept
@@ -428,7 +433,7 @@ class ProductList extends Component {
                                           />
                                       ))
                             : this.state.hasColorFilter
-                            ? this.state.products
+                            ? this.state.products // Only Color filter is applied
                                   .filter(
                                       (product) =>
                                           product.color === this.state.color
@@ -440,7 +445,7 @@ class ProductList extends Component {
                                       />
                                   ))
                             : this.state.products.map((product) => (
-                                  <Product
+                                  <Product // No filters applied
                                       key={product._id}
                                       product={product}
                                   />
@@ -449,7 +454,7 @@ class ProductList extends Component {
                 </div>
             );
         } else {
-            return <div>LOADING...</div>;
+            return <div>LOADING...</div>; // Display "LOADING..." until products array is stored in the state
         }
     }
 }

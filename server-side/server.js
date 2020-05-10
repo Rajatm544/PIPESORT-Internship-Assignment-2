@@ -10,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 const PORT = process.env.PORT || 5000;
 
+// Mongo setup
 const uri = process.env.MONGO_URI;
 mongoose.connect(uri, {
     useNewUrlParser: true,
@@ -21,7 +22,10 @@ connection.once("open", () =>
     console.log("MongoDB database connection has been established!")
 );
 
+// Seeding the DB with fake data from faker.js
 seedDB();
+
+// Set up routes
 const productRoutes = require("./routes/products");
 app.use("/product", productRoutes);
 
