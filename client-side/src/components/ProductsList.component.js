@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Product from "./Product.component";
 import axios from "axios";
 
-const baseURL = process.env.baseURL || "http://localhost:5000";
+// const baseURL = process.env.baseURL || "http://localhost:5000";
 
 class ProductList extends Component {
     constructor() {
@@ -27,7 +27,7 @@ class ProductList extends Component {
 
     componentDidMount() {
         axios
-            .get(`${baseURL}/products`)
+            .get("https://multifilterexample.herokuapp.com/products")
             .then((res) => this.setState({ products: res.data }))
             .then(() => {
                 this.state.products.map((item) =>
