@@ -27,7 +27,7 @@ class ProductList extends Component {
 
     componentDidMount() {
         axios
-            .get(`${baseURL}/product`)
+            .get(`${baseURL}/products`)
             .then((res) => this.setState({ products: res.data }))
             .then(() => {
                 this.state.products.map((item) =>
